@@ -23,10 +23,10 @@ def getPageDetail(url):
     dt = datetime.strptime(soup.select(
         '.time')[0].text, '(%Y-%m-%d %H:%M:%S)')  # 获取时间
     date = dt.strftime('%Y-%m-%d')  # 格式化时间
-    title = soup.select('title')[0].text  # 获取标题
+    title = soup.select('title')[0].text.strip('_韩寒_新浪博客')  # 获取标题
     content = ''.join([i for i in soup.select(
         '.articalContent')[0].text.split()])  # 获取正文
-    dict = {'date': date, 'title': title, 'content': content}
+    dict = {'date': date, 'title': title, 'url': url, 'content': content}
     return dict
 
 
