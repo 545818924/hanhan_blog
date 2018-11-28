@@ -55,33 +55,40 @@ if __name__ == '__main__':
             print("保存成功", f)
 
 
-# import pandas
-# df = pandas.DataFrame(result)
-# df.head()
+# 通过pandas另存为xlsx，
+import pandas
+df = pandas.DataFrame(result)
+df.head()
 
+writer = pandas.ExcelWriter(r'hanhan.xlsx', engine='xlsxwriter', options={
+                            'strings_to_urls': False})
 
-# df.to_excel('hanhan.xlsx')
+df.to_excel(writer)
+writer.save()
+print('Done')
 
+# 通过sqlite3储存sqlite
+import sqlite3
+with sqlite3.connect('hanhan.sqlite') as db:
+    df.to_sql('hanhan', con=db)
 
-# import sqlite3
-# with sqlite3.connect('hanhan.sqlite') as db:
-#     df.to_sql('hanhan', con=db)
-
+# sqlite3 读取测试
 # with sqlite3.connect('hanhan.sqlite') as db:
 #     df2 = pandas.read_sql_query('SELECT * FROM hanhan', con=db)
 # df2
 
-# import pymongo
-# client = pymongo.MongoClient('localhost')
-# db = client['hanhan']
-# table = db['hanhan']
+# 通过pymongo存储到MongoDB
+import pymongo
+client = pymongo.MongoClient('localhost')
+db = client['hanhan']
+table = db['hanhan']
 
 
-# def save_to_mongo(result):
-#     if table.insert_many(result):
-#         print('保存到Mongo成功')
-#     else:
-#         return False
+def save_to_mongo(result):
+    if table.insert_many(result):
+        print('保存到Mongo成功')
+    else:
+        return False
 
 
-# save_to_mongo(result)
+save_to_mongo(result)
