@@ -1,3 +1,3 @@
 # hanhan
 
-韩寒blog爬取
+twocold blog
