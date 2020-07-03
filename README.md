@@ -1,3 +1,1 @@
-# hanhan
-
-twocold blog
+韩寒博客的爬取，留存。
